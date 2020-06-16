@@ -1,9 +1,9 @@
 // add questions and options into arrays
-var questions = ["What year was Earth Wind and Fire created?", "", ""];
-var choiceOne = ["1962", "", ""];
-var choiceTwo = ["1972", "", ""];
-var choiceThree = ["1980", "", ""];
-var choiceFour = ["1969", "", ""];
+var questions = ["What year was Earth Wind and Fire created?", "What year was the original Woodstock?", "What Beatles single lasted longest on the charts, lasting 19 weeks?"];
+var choiceOne = ["1962", "1967", "Imagine"];
+var choiceTwo = ["1972", "1969", "With a little help from my friends"];
+var choiceThree = ["1980", "1971", "Hey Jude"];
+var choiceFour = ["1969", "1962", "Let it Be"];
 var timerEl = document.getElementsByClassName(".timer")
 
 // ask question and compare user answer to correct answer
