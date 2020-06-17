@@ -1,5 +1,5 @@
 // add questions and options into arrays
-var youGotAName = prompt("What is your name?");
+
 // userName = localStorage.setItem('name', JSON.stringify(youGotAName));
 
 var timerEl = document.querySelector(".timer");
@@ -9,11 +9,7 @@ var questionThreeEl = document.querySelector(".small-questions");
 var containerEl = document.querySelector(".container")
 var scoreBoard = document.querySelector(".scoreboard")
 
-// console.log(questionEl);
-// console.log(qOneEl);
-// console.log(qTwoEl);
-// console.log(qThreeEl);
-// console.log(qFourEl);
+
 var scoreEl = document.querySelector(".score")
 var score = 0;
 scoreEl.textContent = "Your Score: " + score;
@@ -41,11 +37,6 @@ var questionThree = {
     choiceThree : "Hey Jude",
     choiceFour : "Let it Be"
 }
-
-
-// console.log(questionOne)
-// console.log(questionTwo)
-// console.log(questionThree)
 
 // ask question and compare user answer to correct answer
 
@@ -135,26 +126,30 @@ function quizQuestionThree(){
     
     qOneThree.addEventListener("click", function(){
         reduceTime(15);
-        containerEl.style.display = "none"
+        storeScore();
+        document.querySelector(".container3").style.display = "none";
         scoreBoard.style.display = "block"
     })
 
     qTwoThree.addEventListener("click", function(){
         reduceTime(15);
-        containerEl.style.display = "none"
+        storeScore();
+        document.querySelector(".container3").style.display = "none";
         scoreBoard.style.display = "block"
     })
 
     qThreeThree.addEventListener("click",function(){
         score+= 1;
+        storeScore();
         scoreEl.textContent = "Your Score: " + score;
-        containerEl.style.display = "none"
+        document.querySelector(".container3").style.display = "none";
         scoreBoard.style.display = "block"
     })
 
     qFourThree.addEventListener("click", function(){
         reduceTime(15);
-        containerEl.style.display = "none"
+        storeScore();
+        document.querySelector(".container3").style.display = "none";
         scoreBoard.style.display = "block"
     })
 }
@@ -164,19 +159,21 @@ function reduceTime(seconds){
         timeLeft -= seconds;
     } else {
         timeLeft = 0;
-        var userInfo = localStorage.setItem(
-                "identifiers",
-                JSON.stringify({
-                theirName: youGotAName.value,
-                theirScore: score.value
-            })
-        );
+        storeScore(); 
         containerEl.style.display = "none";
-
-
         scoreBoard.style.display = "block";
-        console.log(JSON.parse(userInfo));
     }
+}
+function storeScore (){ 
+    var youGotAName = prompt("What is your name?")
+//     localStorage.setItem('name', JSON.stringify(youGotAName));
+//     localStorage.setItem('score', JSON.stringify(score));
+//     var userData = Json.parse(localStorage.getItem('name', score));
+//     var highScores = document.querySelector("#highscores");
+//     var topScores = highScores.createElement("LI")
+//     topScores.textContent = userData;
+//     highScores.append(topScores);
+//     console.log(topScores)
 }
 
 var timeLeft = 60;
@@ -185,7 +182,7 @@ function setTime (){
     var timeInterval = setInterval(function(){
         if (timeLeft <= 0){
             clearInterval(timeInterval)
-            console.log("you lose")    
+            console.log("you lose")   
             containerEl.style.display = "none"
             scoreBoard.style.display = "block"
         } else {
