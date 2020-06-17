@@ -1,5 +1,6 @@
 // add questions and options into arrays
-var userName = prompt("What is your name?")
+var youGotAName = prompt("What is your name?");
+// userName = localStorage.setItem('name', JSON.stringify(youGotAName));
 
 var timerEl = document.querySelector(".timer");
 var questionOneEl = document.querySelector(".big-questions");
@@ -146,7 +147,7 @@ function quizQuestionThree(){
 
     qThreeThree.addEventListener("click",function(){
         score+= 1;
-        scoreEl.textContent = "Your Score: " + score;   
+        scoreEl.textContent = "Your Score: " + score;
         containerEl.style.display = "none"
         scoreBoard.style.display = "block"
     })
@@ -163,20 +164,28 @@ function reduceTime(seconds){
         timeLeft -= seconds;
     } else {
         timeLeft = 0;
-        containerEl.style.display = "none"
-        scoreBoard.style.display = "block"
+        var userInfo = localStorage.setItem(
+                "identifiers",
+                JSON.stringify({
+                theirName: youGotAName.value,
+                theirScore: score.value
+            })
+        );
+        containerEl.style.display = "none";
+
+
+        scoreBoard.style.display = "block";
+        console.log(JSON.parse(userInfo));
     }
 }
 
-
-// make a timer
 var timeLeft = 60;
 
 function setTime (){
     var timeInterval = setInterval(function(){
         if (timeLeft <= 0){
             clearInterval(timeInterval)
-            console.log("you lose")
+            console.log("you lose")    
             containerEl.style.display = "none"
             scoreBoard.style.display = "block"
         } else {
@@ -186,9 +195,8 @@ function setTime (){
     }, 1000);   
 };
 
+// store high scores:
+
+
 quizQuestionOne();
 setTime();
-// score counter
-
-
-// high score list
