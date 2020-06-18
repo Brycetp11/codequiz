@@ -1,7 +1,3 @@
-// add questions and options into arrays
-
-// userName = localStorage.setItem('name', JSON.stringify(youGotAName));
-
 var timerEl = document.querySelector(".timer");
 var questionOneEl = document.querySelector(".big-questions");
 var questionTwoEl = document.querySelector(".medium-questions");
@@ -203,6 +199,7 @@ function endScreen (){
         var li = document.createElement("li")
         li.textContent = `${topScores[i].name}: ` + `${topScores[i].userScore}`;
         scoreBoard.appendChild(li);
+        li.classList.add("list-group-item")
     }
 }
 
