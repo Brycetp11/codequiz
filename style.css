@@ -1,5 +1,6 @@
 body{
- background-color: aquamarine;
+ background-color: whitesmoke;
+ font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
 }
 
 .scoreboard {
@@ -13,3 +14,8 @@ body{
 .container3 {
     display: none;
 }   
+
+.img {
+    max-width: 40%;
+    margin: 0, auto;
+}

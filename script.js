@@ -6,8 +6,10 @@ var timerEl = document.querySelector(".timer");
 var questionOneEl = document.querySelector(".big-questions");
 var questionTwoEl = document.querySelector(".medium-questions");
 var questionThreeEl = document.querySelector(".small-questions");
-var containerEl = document.querySelector(".container")
+var containerEl = document.querySelector(".container1")
 var scoreBoard = document.querySelector(".scoreboard")
+localStorage.getItem('scoreboard')
+var topScores = [];
 
 
 var scoreEl = document.querySelector(".score")
@@ -41,7 +43,7 @@ var questionThree = {
 // ask question and compare user answer to correct answer
 
 function quizQuestionOne(){
-    document.querySelector(".container").style.display = "block"
+    document.querySelector(".container1").style.display = "block"
     var qOneEl = document.getElementById("optionone");
     var qTwoEl = document.getElementById("optiontwo")
     var qThreeEl = document.getElementById("optionthree")
@@ -77,7 +79,7 @@ function quizQuestionOne(){
 
 
 function quizQuestionTwo(){
-    document.querySelector(".container").style.display = "none"
+    document.querySelector(".container1").style.display = "none"
     document.querySelector(".container2").style.display = "block"
     var qOneTwo = document.getElementById("qtwoone");
     var qTwoTwo = document.getElementById("qtwotwo")
@@ -128,14 +130,16 @@ function quizQuestionThree(){
         reduceTime(15);
         storeScore();
         document.querySelector(".container3").style.display = "none";
-        scoreBoard.style.display = "block"
+        scoreBoard.style.display = "block";
+        timerEl.style.display = "none";
     })
 
     qTwoThree.addEventListener("click", function(){
         reduceTime(15);
         storeScore();
         document.querySelector(".container3").style.display = "none";
-        scoreBoard.style.display = "block"
+        scoreBoard.style.display = "block";
+        timerEl.style.display = "none";
     })
 
     qThreeThree.addEventListener("click",function(){
@@ -143,14 +147,16 @@ function quizQuestionThree(){
         storeScore();
         scoreEl.textContent = "Your Score: " + score;
         document.querySelector(".container3").style.display = "none";
-        scoreBoard.style.display = "block"
+        scoreBoard.style.display = "block";
+        timerEl.style.display = "none";
     })
 
     qFourThree.addEventListener("click", function(){
         reduceTime(15);
         storeScore();
         document.querySelector(".container3").style.display = "none";
-        scoreBoard.style.display = "block"
+        scoreBoard.style.display = "block";
+        timerEl.style.display = "none";
     })
 }
 
@@ -163,17 +169,41 @@ function reduceTime(seconds){
         containerEl.style.display = "none";
         scoreBoard.style.display = "block";
     }
-}
+};
+
 function storeScore (){ 
-    var youGotAName = prompt("What is your name?")
-//     localStorage.setItem('name', JSON.stringify(youGotAName));
-//     localStorage.setItem('score', JSON.stringify(score));
-//     var userData = Json.parse(localStorage.getItem('name', score));
-//     var highScores = document.querySelector("#highscores");
-//     var topScores = highScores.createElement("LI")
-//     topScores.textContent = userData;
-//     highScores.append(topScores);
-//     console.log(topScores)
+    var scores = JSON.parse(localStorage.getItem('scoreboard'));
+    var youGotAName = prompt("What is your name?");
+
+    if (scores != null){
+        for (let i = 0; i < scores.length; i++) {
+            topScores.push(scores[i]);
+        }
+    }
+
+    var initialScore = {
+        name : youGotAName,
+        userScore : score
+    }
+    topScores.push(initialScore);
+
+    topScores.sort(function(a, b) {
+        return b.userScore - a.userScore;
+    });
+
+    // call function for displaying scoreboard
+    endScreen();
+
+    localStorage.setItem('scoreboard', JSON.stringify(topScores));
+
+};
+
+function endScreen (){
+    for (let i = 0; i < topScores.length; i++) {
+        var li = document.createElement("li")
+        li.textContent = `${topScores[i].name}: ` + `${topScores[i].userScore}`;
+        scoreBoard.appendChild(li);
+    }
 }
 
 var timeLeft = 60;
@@ -182,7 +212,6 @@ function setTime (){
     var timeInterval = setInterval(function(){
         if (timeLeft <= 0){
             clearInterval(timeInterval)
-            console.log("you lose")   
             containerEl.style.display = "none"
             scoreBoard.style.display = "block"
         } else {
@@ -191,9 +220,6 @@ function setTime (){
         timerEl.textContent = timeLeft + " seconds left";
     }, 1000);   
 };
-
-// store high scores:
-
 
 quizQuestionOne();
 setTime();
